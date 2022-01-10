@@ -28,10 +28,10 @@ public class LinkedList {
     }
 
     public void insertToStart(Node node) {
-        if (this.tail == null)
-            this.tail = this.head;
         node.setNext(this.head);
         this.head = node;
+        if (this.head.getNext() == null)
+            this.tail = this.head;
         this.size++;
         System.out.println(this);
     }
@@ -95,11 +95,15 @@ public class LinkedList {
     }
 
     public void uniteList(LinkedList other) {
-        if (other != null) {
+        if (other.head != null && this.tail != null && this.tail != other.tail) {
             this.tail.setNext(other.head);
             this.tail = other.tail;
             this.size = this.size + other.size;
-            System.out.println(this);
+        } else if (other.head != null && this.tail != other.tail) {
+            this.head = other.head;
+            this.tail = other.tail;
+            this.size = other.size;
         }
+        System.out.println(this);
     }
 }

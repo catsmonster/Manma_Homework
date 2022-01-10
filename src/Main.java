@@ -64,10 +64,10 @@ public class Main {
                     System.out.println(head.getMin());
                 } else if (command.equals("extractmin") && head != null) {
                     head.removeMin();
-                } else if (command.equals("union") && head != null) {
+                } else if (command.equals("union") && head != null && prevList != null) {
                     head.uniteList(prevList);
                 }
-                else
+                else if (!command.equals("quit"))
                     terminationCause = terminationMSG.ERROR_PROGRAM_TERMINATED;
             }
         } while (command != null && !command.equals("quit"));
