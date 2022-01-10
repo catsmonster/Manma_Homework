@@ -1,14 +1,17 @@
 public class LinkedList {
     protected Node head;
+    protected Node tail;
     protected int size;
 
     public LinkedList() {
         this.head = null;
+        this.tail = null;
         this.size = 0;
     }
 
     public LinkedList(int value) {
         this.head = new Node(value);
+        this.tail = this.head;
         this.size = 1;
     }
 
@@ -25,20 +28,12 @@ public class LinkedList {
     }
 
     public void insertToStart(Node node) {
+        if (this.tail == null)
+            this.tail = this.head;
         node.setNext(this.head);
         this.head = node;
         this.size++;
-    }
-
-    public void deleteFromStart() {
-        if (this.size == 1) {
-            this.head = null;
-            this.size = 0;
-        }
-        else {
-            this.head = this.head.getNext();
-            this.size--;
-        }
+        System.out.println(this);
     }
 
     public int getMin() {
@@ -67,19 +62,44 @@ public class LinkedList {
             removeFromStart();
         else
             removeNext(prevToMin);
-
+        System.out.println(this);
     }
 
     protected void removeFromStart() {
         this.head = this.head.getNext();
+        this.size--;
+        if (this.head == null)
+            this.tail = null;
     }
 
     protected void removeNext(Node prev) {
         if (prev != null && prev.getNext() != null && prev.getNext().getNext() != null) {
             prev.setNext(prev.getNext().getNext());
+            this.size--;
         }
         else if (prev != null && prev.getNext() != null) {
             prev.setNext(null);
+            this.size--;
+        }
+    }
+
+    public String toString() {
+        Node curr = this.head;
+        String s = "[";
+        while (curr != null && curr.getNext() != null) {
+            s = s.concat(curr.getValue() + ", ");
+            curr = curr.getNext();
+        }
+        s = curr == null ? s.concat("]") : s.concat(curr.getValue() + "]");
+        return s;
+    }
+
+    public void uniteList(LinkedList other) {
+        if (other != null) {
+            this.tail.setNext(other.head);
+            this.tail = other.tail;
+            this.size = this.size + other.size;
+            System.out.println(this);
         }
     }
 }

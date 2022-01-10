@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-enum terminationMSG {FILE_DOESNT_EXIST, SUCCESS, LIST_TYPE_NOT_SUPPORTED}
+enum terminationMSG {FILE_DOESNT_EXIST, SUCCESS, LIST_TYPE_NOT_SUPPORTED, ERROR_PROGRAM_TERMINATED}
 enum inputMethod {CONSOLE, FILE}
 enum listType {SORTED, UNSORTED, FOREIGN}
 
@@ -44,21 +44,31 @@ public class Main {
 
     private static terminationMSG mainInteractionLoop(inputMethod method, Scanner scan, listType type) {
         LinkedList head = null;
+        LinkedList prevList = null;
         terminationMSG terminationCause = terminationMSG.SUCCESS;
         String command;
         do {
             command = getCommandInput(method, scan);
             if (command != null) {
                 if (command.equals("makeheap")) {
-                    head = initializeLinkedList(type);
+                    if (head == null) {
+                        head = initializeLinkedList(type);
+                    } else {
+                        prevList = head;
+                        head = initializeLinkedList(type);
+                    }
                 } else if (command.contains("insert") && head != null) {
                     String[] str = command.split(" ");
                     head.insertToStart(new Node(Integer.parseInt(str[1])));
                 } else if (command.equals("minimum") && head != null) {
                     System.out.println(head.getMin());
-                } else if (command.equals("extractmin") && head !=null) {
+                } else if (command.equals("extractmin") && head != null) {
                     head.removeMin();
+                } else if (command.equals("union") && head != null) {
+                    head.uniteList(prevList);
                 }
+                else
+                    terminationCause = terminationMSG.ERROR_PROGRAM_TERMINATED;
             }
         } while (command != null && !command.equals("quit"));
         return terminationCause;
