@@ -61,7 +61,7 @@ public class Main {
                     }
                 } else if (command.contains("insert") && head != null) {
                     String[] str = command.split(" ");
-                    head.insertToStart(new Node(Integer.parseInt(str[1])));
+                    head.insertNode(new Node(Integer.parseInt(str[1])));
                 } else if (command.equals("minimum") && head != null) {
                     System.out.println(head.getMin());
                 } else if (command.equals("extractmin") && head != null) {
@@ -75,7 +75,7 @@ public class Main {
                         System.out.println("Please add another heap before performing another union.");
                 }
                 else if (!command.equals("quit"))
-                    terminationCause = terminationMSG.ERROR_PROGRAM_TERMINATED;
+                    return terminationMSG.ERROR_PROGRAM_TERMINATED;
             }
         } while (command != null && !command.equals("quit"));
         return terminationCause;

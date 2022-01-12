@@ -9,7 +9,7 @@ public class LinkedList {
         this.min = Integer.MAX_VALUE;
     }
 
-    public void insertToStart(Node node) {
+    public void insertNode(Node node) {
         node.setNext(this.head);
         this.head = node;
         if (this.head.getNext() == null)
@@ -25,27 +25,29 @@ public class LinkedList {
     }
 
     public void removeMin() {
-        Node curr = this.head;
-        Node prevToMin = curr;
-        int min = this.head.getValue();
-        while (curr.getNext() != null) {
-            if (min > curr.getNext().getValue()) {
-                min = curr.getNext().getValue();
-                prevToMin = curr;
+        if (this.head != null) {
+            Node curr = this.head;
+            Node prevToMin = curr;
+            int min = this.head.getValue();
+            while (curr.getNext() != null) {
+                if (min > curr.getNext().getValue()) {
+                    min = curr.getNext().getValue();
+                    prevToMin = curr;
+                }
+                curr = curr.getNext();
             }
-            curr = curr.getNext();
-        }
-        if (prevToMin.getValue() == min && prevToMin == this.head) {
-            removeFromStart();
-        }
-        else {
-            removeNext(prevToMin);
-        }
-        this.min = findMin();
-        System.out.println(this);
+            if (prevToMin.getValue() == min && prevToMin == this.head) {
+                removeFromStart();
+            } else {
+                removeNext(prevToMin);
+            }
+            this.min = findMin();
+            System.out.println(this);
+        } else
+            System.out.println("The heap is already empty.");
     }
 
-    private int findMin() {
+    protected int findMin() {
         int min = Integer.MAX_VALUE;
         Node curr = this.head;
         if (this.head != null){
@@ -96,5 +98,17 @@ public class LinkedList {
             this.min = Math.min(this.min, other.min);
         }
         System.out.println(this);
+    }
+
+    protected void addAfterNode(Node prev, Node given) {
+        if (prev != null && given != null) {
+            if (prev.getNext() != null) {
+                Node temp = prev.getNext();
+                given.setNext(temp);
+            }
+            prev.setNext(given);
+            if (given.getNext() == null)
+                this.tail = given;
+        }
     }
 }
