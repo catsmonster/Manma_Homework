@@ -23,8 +23,10 @@ public class SortedLinkedList extends LinkedList {
             this.head = this.head.getNext();
             if (this.head != null)
                 this.min = this.head.getValue();
-            else
+            else {
                 this.min = Integer.MAX_VALUE;
+                this.tail = null;
+            }
             System.out.println(this);
         }
         else
@@ -40,14 +42,12 @@ public class SortedLinkedList extends LinkedList {
             this.tail.setNext(other.head);
             this.tail = other.tail;
         } else if (other.head != null && this.head != null) {
-            Node tail;
-            if (this.tail.getValue() > other.tail.getValue())
-                tail = this.tail;
-            else
-                tail = other.tail;
-            this.tail.setNext(other.head);
-            this.head = sortList(this.head);
-            this.tail = tail;
+            Node curr = this.head;
+            this.head = merge(curr, other.head);
+            if (other.tail.getValue() > this.tail.getValue())
+                this.tail = other.tail;
+//            this.tail.setNext(other.head);
+//            this.head = sortList(this.head);
         } else if (other.head != null) {
             this.head = other.head;
             this.tail = other.tail;
@@ -56,26 +56,26 @@ public class SortedLinkedList extends LinkedList {
         System.out.println(this);
     }
 
-    private Node sortList(Node head) {
-        if (head == null || head.getNext() == null)
-            return head;
-
-        Node rightTail = head;
-        Node leftTail = head;
-        Node rightHead = head;
-
-        while (rightTail != null && rightTail.getNext() != null) {
-            leftTail = rightHead;
-            rightHead = rightHead.getNext();
-            rightTail = rightTail.getNext().getNext();
-        }
-        leftTail.setNext(null);
-
-        Node leftSide = sortList(head);
-        Node rightSide = sortList(rightHead);
-
-        return merge(leftSide, rightSide);
-    }
+//    private Node sortList(Node head) {
+//        if (head == null || head.getNext() == null)
+//            return head;
+//
+//        Node rightTail = head;
+//        Node leftTail = head;
+//        Node rightHead = head;
+//
+//        while (rightTail != null && rightTail.getNext() != null) {
+//            leftTail = rightHead;
+//            rightHead = rightHead.getNext();
+//            rightTail = rightTail.getNext().getNext();
+//        }
+//        leftTail.setNext(null);
+//
+//        Node leftSide = sortList(head);
+//        Node rightSide = sortList(rightHead);
+//
+//        return merge(leftSide, rightSide);
+//    }
 
     private Node merge(Node left, Node right) {
         Node temp = new Node();
