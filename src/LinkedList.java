@@ -1,30 +1,12 @@
 public class LinkedList {
     protected Node head;
     protected Node tail;
-    protected int size;
+    protected int min;
 
     public LinkedList() {
         this.head = null;
         this.tail = null;
-        this.size = 0;
-    }
-
-    public LinkedList(int value) {
-        this.head = new Node(value);
-        this.tail = this.head;
-        this.size = 1;
-    }
-
-    public Node getHead() {
-        return this.head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
-    public int getSize() {
-        return this.size;
+        this.min = Integer.MAX_VALUE;
     }
 
     public void insertToStart(Node node) {
@@ -32,19 +14,14 @@ public class LinkedList {
         this.head = node;
         if (this.head.getNext() == null)
             this.tail = this.head;
-        this.size++;
+        if (node.getValue() < this.min) {
+            this.min = node.getValue();
+        }
         System.out.println(this);
     }
 
     public int getMin() {
-        Node curr = this.head;
-        int min = curr.getValue();
-        while (curr != null) {
-            if (min > curr.getValue())
-                min = curr.getValue();
-            curr = curr.getNext();
-        }
-        return min;
+        return this.min;
     }
 
     public void removeMin() {
@@ -58,16 +35,32 @@ public class LinkedList {
             }
             curr = curr.getNext();
         }
-        if (prevToMin.getValue() == min && prevToMin == this.head)
+        if (prevToMin.getValue() == min && prevToMin == this.head) {
             removeFromStart();
-        else
+        }
+        else {
             removeNext(prevToMin);
+        }
+        this.min = findMin();
         System.out.println(this);
+    }
+
+    private int findMin() {
+        int min = Integer.MAX_VALUE;
+        Node curr = this.head;
+        if (this.head != null){
+            min = curr.getValue();
+            while (curr != null) {
+                if (min > curr.getValue())
+                    min = curr.getValue();
+                curr = curr.getNext();
+            }
+        }
+        return min;
     }
 
     protected void removeFromStart() {
         this.head = this.head.getNext();
-        this.size--;
         if (this.head == null)
             this.tail = null;
     }
@@ -75,11 +68,9 @@ public class LinkedList {
     protected void removeNext(Node prev) {
         if (prev != null && prev.getNext() != null && prev.getNext().getNext() != null) {
             prev.setNext(prev.getNext().getNext());
-            this.size--;
         }
         else if (prev != null && prev.getNext() != null) {
             prev.setNext(null);
-            this.size--;
         }
     }
 
@@ -98,11 +89,11 @@ public class LinkedList {
         if (other.head != null && this.tail != null && this.tail != other.tail) {
             this.tail.setNext(other.head);
             this.tail = other.tail;
-            this.size = this.size + other.size;
+            this.min = Math.min(this.min, other.min);
         } else if (other.head != null && this.tail != other.tail) {
             this.head = other.head;
             this.tail = other.tail;
-            this.size = other.size;
+            this.min = Math.min(this.min, other.min);
         }
         System.out.println(this);
     }

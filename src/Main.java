@@ -45,6 +45,7 @@ public class Main {
     private static terminationMSG mainInteractionLoop(inputMethod method, Scanner scan, listType type) {
         LinkedList head = null;
         LinkedList prevList = null;
+        boolean validUnion = false;
         terminationMSG terminationCause = terminationMSG.SUCCESS;
         String command;
         do {
@@ -56,6 +57,7 @@ public class Main {
                     } else {
                         prevList = head;
                         head = initializeLinkedList(type);
+                        validUnion = true;
                     }
                 } else if (command.contains("insert") && head != null) {
                     String[] str = command.split(" ");
@@ -65,7 +67,12 @@ public class Main {
                 } else if (command.equals("extractmin") && head != null) {
                     head.removeMin();
                 } else if (command.equals("union") && head != null && prevList != null) {
-                    head.uniteList(prevList);
+                    if (validUnion) {
+                        head.uniteList(prevList);
+                        validUnion = false;
+                    }
+                    else
+                        System.out.println("Please add another heap before performing another union.");
                 }
                 else if (!command.equals("quit"))
                     terminationCause = terminationMSG.ERROR_PROGRAM_TERMINATED;
