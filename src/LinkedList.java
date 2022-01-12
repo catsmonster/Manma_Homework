@@ -104,6 +104,8 @@ public class LinkedList {
         if (prev != null && given != null) {
             if (prev.getNext() != null) {
                 Node temp = prev.getNext();
+                if (this.tail.getValue() < temp.getValue())
+                    this.tail = temp;
                 given.setNext(temp);
             }
             prev.setNext(given);
