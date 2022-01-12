@@ -44,6 +44,7 @@ public class SortedLinkedList extends LinkedList {
             this.head = merge(curr, other.head);
             if (other.tail.getValue() > this.tail.getValue())
                 this.tail = other.tail;
+            this.min = this.head.getValue();
         } else if (other.head != null) {
             this.head = other.head;
             this.tail = other.tail;
