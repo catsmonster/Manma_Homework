@@ -44,8 +44,6 @@ public class SortedLinkedList extends LinkedList {
             this.head = merge(curr, other.head);
             if (other.tail.getValue() > this.tail.getValue())
                 this.tail = other.tail;
-//            this.tail.setNext(other.head);
-//            this.head = sortList(this.head);
         } else if (other.head != null) {
             this.head = other.head;
             this.tail = other.tail;
@@ -53,27 +51,6 @@ public class SortedLinkedList extends LinkedList {
         }
         System.out.println(this);
     }
-
-//    private Node sortList(Node head) {
-//        if (head == null || head.getNext() == null)
-//            return head;
-//
-//        Node rightTail = head;
-//        Node leftTail = head;
-//        Node rightHead = head;
-//
-//        while (rightTail != null && rightTail.getNext() != null) {
-//            leftTail = rightHead;
-//            rightHead = rightHead.getNext();
-//            rightTail = rightTail.getNext().getNext();
-//        }
-//        leftTail.setNext(null);
-//
-//        Node leftSide = sortList(head);
-//        Node rightSide = sortList(rightHead);
-//
-//        return merge(leftSide, rightSide);
-//    }
 
     private Node merge(Node left, Node right) {
         Node temp = new Node();
