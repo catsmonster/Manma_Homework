@@ -29,19 +29,26 @@ public class LinkedList {
             Node curr = this.head;
             Node prevToMin = curr;
             int min = this.head.getValue();
+            int nextMin = min;
             while (curr.getNext() != null) {
                 if (min > curr.getNext().getValue()) {
                     min = curr.getNext().getValue();
                     prevToMin = curr;
                 }
+                if (nextMin > curr.getNext().getValue() && nextMin != min)
+                    nextMin = curr.getNext().getValue();
                 curr = curr.getNext();
             }
             if (prevToMin.getValue() == min && prevToMin == this.head) {
                 removeFromStart();
+                if (nextMin > this.head.getValue())
+                    this.min = this.head.getValue();
+                else
+                    this.min = nextMin;
             } else {
                 removeNext(prevToMin);
+                this.min = nextMin;
             }
-            this.min = findMin();
             System.out.println(this);
         } else
             System.out.println("The heap is already empty.");
