@@ -9,6 +9,11 @@ public class LinkedList {
         this.min = Integer.MAX_VALUE;
     }
 
+    /**
+     * adds item to the front of the list and prints the list. O(1) time complexity.
+     * note that the tail is only set once to the head node, so as items are added, it correctly keeps the tail position.
+     * @param node given node to be added to list
+     */
     public void insertNode(Node node) {
         node.setNext(this.head);
         this.head = node;
@@ -20,10 +25,17 @@ public class LinkedList {
         System.out.println(this);
     }
 
+    /**
+     * returns the minimum value of the list in O(1)
+     * @return minimum value in the list
+     */
     public int getMin() {
         return this.min;
     }
 
+    /**
+     * removes the item with the minimum value from the list, updates the next minimum value. O(n) time complexity.
+     */
     public void removeMin() {
         if (this.head != null) {
             Node curr = this.head;
@@ -49,18 +61,22 @@ public class LinkedList {
             System.out.println("The heap is already empty.");
     }
 
-    protected void removeFromStart() {
+    /*
+    removes the first item from the list in O(1) time complexity, and updates the tail node if necessary.
+     */
+    private void removeFromStart() {
         this.head = this.head.getNext();
         if (this.head == null)
             this.tail = null;
     }
 
-    protected void removeNext(Node prev) {
+    private void removeNext(Node prev) {
         if (prev != null && prev.getNext() != null && prev.getNext().getNext() != null) {
             prev.setNext(prev.getNext().getNext());
         }
         else if (prev != null && prev.getNext() != null) {
             prev.setNext(null);
+            this.tail = prev;
         }
     }
 
