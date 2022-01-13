@@ -28,44 +28,25 @@ public class LinkedList {
         if (this.head != null) {
             Node curr = this.head;
             Node prevToMin = curr;
-            int min = this.head.getValue();
-            int nextMin = min;
+            int nextMin = Integer.MAX_VALUE;
             while (curr.getNext() != null) {
-                if (min > curr.getNext().getValue()) {
-                    min = curr.getNext().getValue();
-                    prevToMin = curr;
-                }
-                if (nextMin > curr.getNext().getValue() && nextMin != min)
+                if (nextMin > curr.getValue() && curr.getValue() != this.min) {
+                    nextMin = curr.getValue();
+                } else if (nextMin > curr.getNext().getValue() && curr.getNext().getValue() != this.min)
                     nextMin = curr.getNext().getValue();
+                if (curr.getNext().getValue() == this.min)
+                    prevToMin = curr;
                 curr = curr.getNext();
             }
-            if (prevToMin.getValue() == min && prevToMin == this.head) {
+            if (prevToMin == this.head && prevToMin.getValue() == this.min) {
                 removeFromStart();
-                if (nextMin > this.head.getValue())
-                    this.min = this.head.getValue();
-                else
-                    this.min = nextMin;
             } else {
                 removeNext(prevToMin);
-                this.min = nextMin;
             }
+            this.min = nextMin;
             System.out.println(this);
         } else
             System.out.println("The heap is already empty.");
-    }
-
-    protected int findMin() {
-        int min = Integer.MAX_VALUE;
-        Node curr = this.head;
-        if (this.head != null){
-            min = curr.getValue();
-            while (curr != null) {
-                if (min > curr.getValue())
-                    min = curr.getValue();
-                curr = curr.getNext();
-            }
-        }
-        return min;
     }
 
     protected void removeFromStart() {
