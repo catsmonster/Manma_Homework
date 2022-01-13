@@ -34,7 +34,8 @@ public class LinkedList {
     }
 
     /**
-     * removes the item with the minimum value from the list, updates the next minimum value. O(n) time complexity.
+     * removes the item with the minimum value from the list, updates the next minimum value
+     * then prints the list. O(n) time complexity.
      */
     public void removeMin() {
         if (this.head != null) {
@@ -70,6 +71,9 @@ public class LinkedList {
             this.tail = null;
     }
 
+    /*
+    removes the item after the given node from the list in O(1) time complexity, if the last item was removed, updates tail
+     */
     private void removeNext(Node prev) {
         if (prev != null && prev.getNext() != null && prev.getNext().getNext() != null) {
             prev.setNext(prev.getNext().getNext());
@@ -80,6 +84,10 @@ public class LinkedList {
         }
     }
 
+    /**
+     * creates a String representing the list, to be printed to the user
+     * @return a String representation of the list
+     */
     public String toString() {
         Node curr = this.head;
         String s = "[";
@@ -91,6 +99,11 @@ public class LinkedList {
         return s;
     }
 
+    /**
+     * connects the tail of the list to the head of the second list (depending on which one has items in it)
+     * then prints the list. O(1) time complexity
+     * @param other given list to unite with current list
+     */
     public void uniteList(LinkedList other) {
         if (other.head != null && this.tail != null && this.tail != other.tail) {
             this.tail.setNext(other.head);
@@ -102,19 +115,5 @@ public class LinkedList {
             this.min = Math.min(this.min, other.min);
         }
         System.out.println(this);
-    }
-
-    protected void addAfterNode(Node prev, Node given) {
-        if (prev != null && given != null) {
-            if (prev.getNext() != null) {
-                Node temp = prev.getNext();
-                if (this.tail.getValue() < temp.getValue())
-                    this.tail = temp;
-                given.setNext(temp);
-            }
-            prev.setNext(given);
-            if (given.getNext() == null)
-                this.tail = given;
-        }
     }
 }
