@@ -44,12 +44,12 @@ public class LinkedList {
             Node prevToMin = curr;
             int nextMin = Integer.MAX_VALUE;
             while (curr.getNext() != null) {
-                if (nextMin > curr.getValue() && curr.getValue() != this.min) {
-                    nextMin = curr.getValue();
-                } else if (nextMin > curr.getNext().getValue() && curr.getNext().getValue() != this.min)
-                    nextMin = curr.getNext().getValue();
                 if (curr.getNext().getValue() == this.min)
                     prevToMin = curr;
+                if (nextMin > curr.getValue() && curr != prevToMin.getNext()) {
+                    nextMin = curr.getValue();
+                } else if (nextMin > curr.getNext().getValue() && curr.getNext() != prevToMin.getNext())
+                    nextMin = curr.getNext().getValue();
                 curr = curr.getNext();
             }
             if (prevToMin == this.head && prevToMin.getValue() == this.min) {
@@ -63,10 +63,10 @@ public class LinkedList {
             System.out.println("The heap is already empty.");
     }
 
-    /*
-    removes the first item from the list in O(1) time complexity, and updates the tail node if necessary.
-     */
-    private void removeFromStart() {
+    /**
+     *removes the first item from the list in O(1) time complexity, and updates the tail node if necessary.
+     **/
+    protected void removeFromStart() {
         this.head = this.head.getNext();
         if (this.head == null)
             this.tail = null;

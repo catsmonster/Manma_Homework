@@ -70,6 +70,7 @@ public class Main {
     it will perform initialize C and store it in B, and then another union will create ABC.
      */
     private static terminationMSG mainInteractionLoop(inputMethod method, Scanner scan, listType type) {
+        System.out.println(type.toString().toLowerCase() + " heap selected.");
         LinkedList head = null;
         LinkedList prevList = null;
         boolean validUnion = false;
@@ -101,6 +102,8 @@ public class Main {
                     else
                         System.out.println("Please add another heap before performing another union.");
                 }
+                else if (command.equals("print") && head != null)
+                    System.out.println(head);
                 else if (!command.equals("quit"))
                     return terminationMSG.ERROR_PROGRAM_TERMINATED;
             }
@@ -144,6 +147,7 @@ public class Main {
                 - Union
                 - Minimum
                 - ExtractMin
+                - Print
                 - Quit
                 \s""");
     }
