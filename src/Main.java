@@ -11,6 +11,9 @@ public class Main {
     /**
      * the main function will initiate the process, calling either a function to interact with the user, or a function
      * to read instructions from a file.
+     * note: to add a relative path for an instructions file located in the src folder, for example,
+     * the argument should be "./src/your-file.txt", provide this argument *BEFORE* running the program for it to be recognized.
+     * relative path may vary depending on the compiler's file management.
      * @param args possible instructions file relative or absolute path
      * @throws FileNotFoundException in case there is a problem reading the file
      */
