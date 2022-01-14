@@ -87,7 +87,7 @@ public class Main {
                     String[] str = command.split(" ");
                     head.insertNode(new Node(Integer.parseInt(str[1])));
                 } else if (command.equals("minimum") && head != null) {
-                    System.out.println(head.getMin());
+                    System.out.println("The minimum is: " + head.getMin());
                 } else if (command.equals("extractmin") && head != null) {
                     head.removeMin();
                 } else if (command.equals("union") && head != null && prevList != null) {

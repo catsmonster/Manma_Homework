@@ -7,6 +7,7 @@ public class LinkedList {
         this.head = null;
         this.tail = null;
         this.min = Integer.MAX_VALUE;
+        System.out.println("New list created successfully.");
     }
 
     /**
@@ -57,7 +58,7 @@ public class LinkedList {
                 removeNext(prevToMin);
             }
             this.min = nextMin;
-            System.out.println(this);
+            System.out.println("Minimum extracted, the list is now: " + this);
         } else
             System.out.println("The heap is already empty.");
     }
@@ -114,6 +115,6 @@ public class LinkedList {
             this.tail = other.tail;
             this.min = Math.min(this.min, other.min);
         }
-        System.out.println(this);
+        System.out.println("United list: " + this);
     }
 }

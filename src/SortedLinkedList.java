@@ -53,7 +53,7 @@ public class SortedLinkedList extends LinkedList {
                 this.min = Integer.MAX_VALUE;
                 this.tail = null;
             }
-            System.out.println(this);
+            System.out.println("Minimum extracted, the list is now: " + this);
         }
         else
             System.out.println("The heap is already empty.");
@@ -85,7 +85,7 @@ public class SortedLinkedList extends LinkedList {
             this.tail = other.tail;
             this.min = other.min;
         }
-        System.out.println(this);
+        System.out.println("United list is: " + this);
     }
 
     /*

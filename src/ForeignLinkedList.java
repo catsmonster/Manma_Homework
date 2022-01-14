@@ -4,26 +4,26 @@ import java.util.Set;
 public class ForeignLinkedList extends LinkedList{
     /*
     the global set holds all the numbers added so far in up to 2 lists.
+    the current set holds the numbers added in the current list
      */
-    private final static Set<Integer> globalSet = new HashSet<>();
+    private static Set<Integer> globalSet = new HashSet<>();
+    private static Set<Integer> currentSet = new HashSet<>();
     private static short numOfLists = 0;
-    private final Set<Integer> localSet;
 
     /**
      * constructs a foreign linked list, together with a hashtable as a tool to keep track of whether a number was added to the list.
-     * if more than 1 list already exist, the global set needs to be refreshed, so that items that are no longer relevant
-     * to the union function don't influence the new list. In the best and average cases, the constructor will run with
-     * a time complexity of O(1).
+     * if more than 1 list already exists, the global set needs to be refreshed, so that items that are no longer relevant
+     * to the union function don't influence the new list. Time complexity is O(1).
      */
     public ForeignLinkedList() {
         super();
-        this.localSet = new HashSet<>();
         if (numOfLists < 2) {
             numOfLists++;
         } else {
-            globalSet.clear();
+            globalSet = currentSet;
             numOfLists = 1;
         }
+        currentSet = new HashSet<>();
     }
 
     /**
@@ -38,13 +38,13 @@ public class ForeignLinkedList extends LinkedList{
      * @param node given node to be added to list
      */
     public void insertNode(Node node) {
-        if (!globalSet.contains(node.getValue()) || this.localSet.contains(node.getValue())) {
-            this.localSet.add(node.getValue());
+        if (!globalSet.contains(node.getValue()) || currentSet.contains(node.getValue())) {
+            currentSet.add(node.getValue());
             globalSet.add(node.getValue());
             super.insertNode(node);
         }
         else {
-            System.out.println("This number cannot be added, as it already exists in another list");
+            System.out.println("The number " + node.getValue() + " cannot be added, as it already exists in another list");
         }
     }
 
@@ -64,7 +64,7 @@ public class ForeignLinkedList extends LinkedList{
      */
     public void removeMin() {
         globalSet.remove(this.min);
-        localSet.remove(this.min);
+        currentSet.remove(this.min);
         super.removeMin();
     }
 
