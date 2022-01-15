@@ -45,18 +45,18 @@ public class LinkedList {
     public void removeMin() {
         if (this.head != null) {
             Node curr = this.head;
-            Node prevToMin = curr;
+            Node prevToMin = new Node();
+            prevToMin.setNext(this.head);
             int nextMin = Integer.MAX_VALUE;
-            while (curr.getNext() != null) {
-                if (curr.getNext().getValue() == this.min)
-                    prevToMin = curr;
+            while (curr != null) {
+                if (curr.getValue() != this.min && prevToMin.getNext().getValue() != this.min)
+                    prevToMin = prevToMin.getNext();
                 if (nextMin > curr.getValue() && curr != prevToMin.getNext()) {
                     nextMin = curr.getValue();
-                } else if (nextMin > curr.getNext().getValue() && curr.getNext() != prevToMin.getNext())
-                    nextMin = curr.getNext().getValue();
+                }
                 curr = curr.getNext();
             }
-            if (prevToMin == this.head && prevToMin.getValue() == this.min) {
+            if (prevToMin.getNext() == this.head) {
                 removeFromStart();
             } else {
                 removeNext(prevToMin);
