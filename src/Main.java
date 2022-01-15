@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) throws FileNotFoundException {
         terminationMSG msg = (args.length == 0) ? getInputFromUser() : getInputFromUser(args[0]);
-        System.out.println("Program ended with message: " + msg);
+        System.out.println("\nProgram ended with message: " + msg);
     }
 
     /*
@@ -91,7 +91,7 @@ public class Main {
                     String[] str = command.split(" ");
                     head.insertNode(new Node(Integer.parseInt(str[1])));
                 } else if (command.equals("minimum") && head != null) {
-                    System.out.println("The minimum is: " + head.getMin());
+                    System.out.println((head.getHead() != null ? "The minimum is: " + head.getMin() : "The heap is empty. Minimum doesn't exist"));
                 } else if (command.equals("extractmin") && head != null) {
                     head.removeMin();
                 } else if (command.equals("union") && head != null && prevList != null) {

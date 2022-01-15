@@ -3,6 +3,10 @@ public class LinkedList {
     protected Node tail;
     protected int min;
 
+    public Node getHead() {
+        return this.head;
+    }
+
     public LinkedList() {
         this.head = null;
         this.tail = null;

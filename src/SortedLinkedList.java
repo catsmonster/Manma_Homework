@@ -46,12 +46,11 @@ public class SortedLinkedList extends LinkedList {
      */
     public void removeMin() {
         if (this.head != null) {
-            this.head = this.head.getNext();
+            removeFromStart();
             if (this.head != null)
                 this.min = this.head.getValue();
             else {
                 this.min = Integer.MAX_VALUE;
-                this.tail = null;
             }
             System.out.println("Minimum extracted, the list is now: " + this);
         }
