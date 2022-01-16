@@ -8,6 +8,7 @@ public class SortedLinkedList extends LinkedList {
      */
     public void insertNode(Node node) {
         if (node != null) {
+//            long start = System.nanoTime();
             if (node.getValue() <= this.min)
                 super.insertNode(node);
             else {
@@ -16,7 +17,9 @@ public class SortedLinkedList extends LinkedList {
                     curr = curr.getNext();
                 }
                 addAfterNode(curr, node);
+//                long end = System.nanoTime();
                 System.out.println(this);
+//                System.out.println("Time it took to insert a new node in nanoseconds: " + (end - start));
             }
         }
     }
@@ -46,13 +49,16 @@ public class SortedLinkedList extends LinkedList {
      */
     public void removeMin() {
         if (this.head != null) {
+//            long start = System.nanoTime();
             removeFromStart();
             if (this.head != null)
                 this.min = this.head.getValue();
             else {
                 this.min = Integer.MAX_VALUE;
             }
+//            long end = System.nanoTime();
             System.out.println("Minimum extracted, the list is now: " + this);
+//            System.out.println("Time it took to remove the minimum in nanoseconds: " + (end - start));
         }
         else
             System.out.println("The heap is already empty.");
@@ -66,6 +72,7 @@ public class SortedLinkedList extends LinkedList {
      * @param other given list to unite with current list
      */
     public void uniteList(LinkedList other) {
+//        long start = System.nanoTime();
         if (other.head != null && this.head != null && other.tail.getValue() < this.head.getValue()) {
             other.tail.setNext(this.head);
             this.head = other.head;
@@ -84,7 +91,9 @@ public class SortedLinkedList extends LinkedList {
             this.tail = other.tail;
             this.min = other.min;
         }
+//        long end = System.nanoTime();
         System.out.println("United list is: " + this);
+//        System.out.println("Time it took to unite the list in nanoseconds: " + (end - start));
     }
 
     /*

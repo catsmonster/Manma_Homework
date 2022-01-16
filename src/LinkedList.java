@@ -44,6 +44,7 @@ public class LinkedList {
      */
     public void removeMin() {
         if (this.head != null) {
+//            long start = System.nanoTime();
             Node curr = this.head;
             Node prevToMin = new Node();
             prevToMin.setNext(this.head);
@@ -62,7 +63,9 @@ public class LinkedList {
                 removeNext(prevToMin);
             }
             this.min = nextMin;
+//            long end = System.nanoTime();
             System.out.println("Minimum extracted, the list is now: " + this);
+//            System.out.println("Time it took to extract the minimum in nanoseconds: " + (end - start));
         } else
             System.out.println("The heap is already empty.");
     }
@@ -110,6 +113,7 @@ public class LinkedList {
      * @param other given list to unite with current list
      */
     public void uniteList(LinkedList other) {
+//        long start = System.nanoTime();
         if (other.head != null && this.tail != null && this.tail != other.tail) {
             this.tail.setNext(other.head);
             this.tail = other.tail;
@@ -119,6 +123,8 @@ public class LinkedList {
             this.tail = other.tail;
             this.min = Math.min(this.min, other.min);
         }
+//        long end = System.nanoTime();
+//        System.out.println("Time it took to unite the list in nanoseconds: " + (end - start));
         System.out.println("United list: " + this);
     }
 }

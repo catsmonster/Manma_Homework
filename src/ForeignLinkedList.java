@@ -38,10 +38,13 @@ public class ForeignLinkedList extends LinkedList{
      * @param node given node to be added to list
      */
     public void insertNode(Node node) {
+//        long start = System.nanoTime();
         if (!globalSet.contains(node.getValue()) || currentSet.contains(node.getValue())) {
             currentSet.add(node.getValue());
             globalSet.add(node.getValue());
             super.insertNode(node);
+//            long end = System.nanoTime();
+//            System.out.println("Time it took to insert a new node in nanoseconds: " + (end - start));
         }
         else {
             System.out.println("The number " + node.getValue() + " cannot be added, as it already exists in another list");
@@ -63,8 +66,11 @@ public class ForeignLinkedList extends LinkedList{
      * similar to that of the original removeMin function defined in the LinkedList parent class.
      */
     public void removeMin() {
+//        long start = System.nanoTime();
         globalSet.remove(this.min);
         currentSet.remove(this.min);
+//        long end = System.nanoTime();
+//        System.out.println("Time it took for the minimum to be removed from the set in nanoseconds: " + (end - start));
         super.removeMin();
     }
 
